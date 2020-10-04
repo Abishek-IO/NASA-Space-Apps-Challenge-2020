@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Global Temperature Rise Visualizer</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="images/icon.png">
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style type="text/css">
+
+      *{
+        overflow: hidden;
+      }
+      /* Navbar */
+      .navbar-nav a{
+          font-size: 120%;
+          margin-left: 30px !important;
+      }
+      .navbar-nav .act{
+          
+          border-top: 1px solid #ffffff;
+      }
+      .navbar-nav a:hover{
+          border-top: 1px solid #ffffff;
+          transition: ease-in-out 0.5s;
+      }
+
+      body{
+        background: #000000;
+      }
+      body{
+          background-color: #000000;
+          color: #00c58d;
+          transition: 2s;
+      }
+      h1{
+          color: #00c0c5;
+      }
+      .navbar{
+        position: absolute;
+        right: 7%;
+        font-size: 130%;
+      }
+      .globe_urundai{
+        overflow: visible;
+        position: absolute;
+        left: -120px;
+        /* padding-top: 1px; */
+        z-index: 10;
+        width: 80%;
+      }
+
+      #currentInfo {
+        width: 70px;
+        position: absolute;
+        left: 20px;
+        top: 240px;
+        padding: 10px;
+        background-color: rgba(.9,0.9,0.9,0.3);
+        border-radius: 3px;
+        font: 15px Georgia;
+        padding: 10px;
+        z-index: 20;
+      }
+      .year {
+        font: 11px Verdana, Geneva, sans-serif;
+        line-height: 30px;
+        height: 30px;
+        text-align: left;
+        float: left;
+        width: 150px;
+        color: rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        -webkit-transition: all 0.1s ease-out;
+      }
+
+      .year:hover, .year.active {
+        font-size: 13px;
+        color: #fff;
+      }
+      .content{
+        margin-top: 100px;
+      }
+      .imag{
+          width: 200px;
+          position: fixed;
+          right: 50px;
+          bottom: 50px;
+      }
+      .txt{
+        margin-top: 20px;
+        margin-right: 17%;
+        font-size: 150%;
+      }
+
+    </style>
+  </head>
+<body>
+     
+  <div id="currentInfo">
+    <span id="year1910" class="year">1910s</span>
+    <span id="year1920" class="year">1920s</span>
+    <span id="year1930" class="year">1930s</span>
+    <span id="year1940" class="year">1940s</span>
+    <span id="year1980" class="year">1980s</span>
+    <span id="year1990" class="year">1990s</span>
+    <span id="year2000" class="year">2000s</span>
+    <span id="year2010" class="year">2010s</span>
+    <span id="year2020" class="year">2020s</span>
+  </div>
+
+  <div class="container">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <a class="nav-link" href="http://localhost:8088/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle act" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Project
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Visualiser</a>
+                <a class="dropdown-item" href="http://127.0.0.1:5000/">Forecast</a>
+              </div>
+            </li>
+          <li class="nav-item">
+          <a class="nav-link" href="http://localhost:8088/about.html">About</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="http://localhost:8088/team.html">The Team</a>
+          </li>
+      </ul>
+      </div>
+  </nav>
+  </div>
+    <div class="row">
+      <div id="container" class=" globe_urundai"></div>
+      <div class="col-lg-7"></div>
+      <div class="col-lg-5 content">
+          <div id="title">
+            <h1>Global Temperature Rise Visualizer</h1>
+          </div>
+          <div id="bio" class="txt">
+            This globe shows the average temperature anomalies over land from 1910 to present day in decades. Temperature anomalies are defined by the difference in temperature at a location between a given time period. The colour and height of the spikes are jointly scaled to show how much the average temperature has changed from 1951-1980. Blue and purple spikes show temperatures cooler that the average temperature while red and yellow spikes show temperatures warmer than the average temperature.
+          </div>
+      </div>
+    </div>
+  
+    
+
+
+
+
+  <script type="text/javascript" src="third-party/Detector.js"></script>
+  <script type="text/javascript" src="third-party/three.min.js"></script>
+  <script type="text/javascript" src="third-party/Tween.js"></script>
+  <script type="text/javascript" src="globe.js"></script>
+  <script type="text/javascript">
+
+    if(!Detector.webgl){
+      Detector.addGetWebGLMessage();
+    } else {
+
+
+    var years = ['1910','1920','1930','1940','1980','1990', '2000', '2010'];
+    var container = document.getElementById('container');
+
+	var globe;
+
+	  loadData('temp_anomaly_land.json');
+
+
+    }
+
+	function clearData()
+	{
+		var myNode = document.getElementById("container");
+		while (myNode.firstChild) {
+			myNode.removeChild(myNode.firstChild);
+		}
+	}
+
+	function loadData(url)
+	{
+
+		document.body.style.backgroundImage = "url('loading.gif')";
+		clearData();
+
+		var xhr;
+		xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            window.data = data;
+
+			globe = new DAT.Globe(container);
+
+	   var change = function(i) {
+            return function() {
+				console.log(i);
+                globe.resetData();
+				console.log(i);
+                globe.addData(data[i][1], {format: 'magnitude'});
+                globe.createPoints();
+                globe.animate();
+
+
+				var y = document.getElementById('year'+years[i]);
+				  if (y.getAttribute('class') === 'year active') {
+					return;
+				  }
+
+               var yy = document.getElementsByClassName('year');
+			  for(var j=0; j<yy.length; j++) {
+				yy[j].setAttribute('class','year');
+			  }
+			  y.setAttribute('class', 'year active');
+            };
+        }
+
+		globe.addData(data[0][1], {format: 'magnitude'});
+
+
+
+
+      for(var i = 0; i<years.length; i++) {
+        var y = document.getElementById('year'+years[i]);
+        y.addEventListener('click', change(i), false);
+		y.setAttribute('class','year');
+		console.log("add click " +i);
+      }
+
+	  document.getElementById("year1910").setAttribute('class', 'year active');
+
+            globe.createPoints();
+            globe.animate();
+            document.body.style.backgroundImage = 'none'; // remove loading
+          }
+        }
+      };
+      xhr.send(null);
+	}
+
+  </script>
+
+<img src="images/nasa.png" class="imag">
+</body>
+
+</html>
