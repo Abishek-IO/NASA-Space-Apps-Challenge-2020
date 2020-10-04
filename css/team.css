@@ -1,0 +1,57 @@
+body{
+    background-color: #000000;
+    color: #00c58d;
+    text-align: center;
+}
+h3{
+    color: #00c0c5;
+}
+
+/* Navbar */
+.navbar-brand{
+    font-size: 200%;
+}
+.navbar-nav a{
+    font-size: 150%;
+    margin-left: 30px !important;
+}
+.navbar-nav .act{
+    
+    border-top: 1px solid #ffffff;
+}
+.navbar-nav a:hover{
+    border-top: 1px solid #ffffff;
+    transition: ease-in-out 0.5s;
+}
+hr{
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(256,256,256,0.1);
+}
+
+img{
+    width: 40%;
+    margin-top: 50px;
+    margin-bottom: 10px;    
+}
+.extra{
+    height: 100px;
+}
+
+.imag{
+    width: 200px;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+}
+
+@media only screen and (max-width: 666px){
+    .imag{
+        width: 125px;
+        right: 15px;
+        bottom: 15px;
+    }
+    img{
+        margin-top: 20px;
+        margin-bottom: 10px;    
+    }
+}
